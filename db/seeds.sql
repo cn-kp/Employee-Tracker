@@ -22,10 +22,10 @@ VALUES ('Web Developer',100000,1),
 INSERT INTO employee (first_name,last_name,role_id, manager_id)
 VALUES ('kevin','peng',1,1),
         ('bob','bob',2,2),
-        ('jason','peng',1,1),
-        ('andrew','peng',3,1),
-        ('kevin','bob',4,2),
-        ('kevin','peter',2,1),
-        ('kevin','tang',4,1),
-        ('kevin','fang',3,1),
-        ('kevin','fing',1,1);
+        ('andres','rob',1,1),
+        ('anthony','hib',3,1),
+        ('dwayne','bob',4,2),
+        ('rock','peter',2,1),
+        ('paul','tang',4,1),
+        ('quincy','fang',3,1),
+        ('david','ling',1,NULL);

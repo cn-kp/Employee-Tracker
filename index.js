@@ -324,46 +324,58 @@ const updateManager = async () => {
 
 // ----------------------View Employee by Manager Function ---------------------------- //
 
+// const viewByManager = () => {
+//   db.query(
+//     `SELECT id,first_name, last_name,role_id AS worker FROM employee GROUP BY manager_id`,
+//     (err, results) => {
+//       if (err) throw err;
+//       else {
+//         console.table(results);
+//         question();
+//       }
+//     }
+//   );
 const viewByManager = () => {
   db.query(
-    `SELECT id,first_name, last_name,role_id AS worker FROM employee GROUP BY manager_id`,
-    (err, results) => {
+    "SELECT id, first_name, last_name, role_id FROM employee WHERE manager_id IS NULL",
+    async (err, results) => {
       if (err) throw err;
       else {
-        console.table(results);
-        question();
+        console.log(results);
       }
     }
   );
-  // db.query("SELECT manager_id,id FROM employee", async (err, results) => {
-  //   if (err) throw err;
-  //   else {
-  //     const managerList = results.map((employee) => {
-  //       return { name: employee.manager_id, value: employee.id };
-  //     });
-  //     console.log(managerList);
-  //     const userInput = await inquirer.prompt([
-  //       {
-  //         type: "list",
-  //         message: "What is the manager ID you want to view?",
-  //         name: "viewByManager",
-  //         choices: managerList,
-  //       },
-  //     ]);
-  //     const { ViewByManager } = userInput;
-  //     db.query(
-  //       ``SELECT first_name, last_name AS name FROM employee GROUP BY manager_id``,
-  //       ViewByManager,
-  //       (err, results) => {
-  //         if (err) throw err;
-  //         else {
-  //           console.table(results);
-  //           question();
+
+  //   db.query("SELECT manager_id,id FROM employee", async (err, results) => {
+  //     if (err) throw err;
+  //     else {
+  //       const managerList = results.map((employee) => {
+  //         return { name: employee.manager_id, value: employee.id };
+  //       });
+  //       console.log(managerList);
+  //       const userInput = await inquirer.prompt([
+  //         {
+  //           type: "list",
+  //           message: "What is the manager ID you want to view?",
+  //           name: "viewByManager",
+  //           choices: managerList,
+  //         },
+  //       ]);
+  //       const { ViewByManager } = userInput;
+  //       db.query(
+  //         `SELECT first_name, last_name AS name FROM employee GROUP BY manager_id`,
+  //         ViewByManager,
+  //         (err, results) => {
+  //           if (err) throw err;
+  //           else {
+  //             console.table(results);
+  //             question();
+  //           }
   //         }
-  //       }
-  //     );
-  //   }
-  // });
+  //       );
+  //     }
+  //   });
+  // };
 };
 
 // ---------------------- Delete Function ---------------------------- //
