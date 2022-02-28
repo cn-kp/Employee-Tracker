@@ -163,25 +163,11 @@ const addRole = async () => {
       name: "salary",
       type: "input",
       message: "What is the Salary?",
-      // validate: (input) => {
-      //   if (typeof input == "number") return true;
-      //   else {
-      //     console.log("Please enter the salary amount!");
-      //     return false;
-      //   }
-      // },
     },
     {
       name: "department_id",
       type: "input",
       message: "What is the Department ID?",
-      // validate: (input) => {
-      //   if (typeof input == "number") return true;
-      //   else {
-      //     console.log("Please enter the department id!");
-      //     return false;
-      //   }
-      // },
     },
   ]);
   const { title, salary, department_id } = userInput;
@@ -230,25 +216,11 @@ const addEmployee = async () => {
       name: "roleID",
       type: "input",
       message: "What is the role ID?",
-      // validate: (input) => {
-      //   if (typeof input == "number") return true;
-      //   else {
-      //     console.log("Please enter the department id!");
-      //     return false;
-      //   }
-      // },
     },
     {
       name: "managerID",
       type: "input",
       message: "What is the manager ID?",
-      // validate: (input) => {
-      //   if (typeof input == "number") return true;
-      //   else {
-      //     console.log("Please enter the department id!");
-      //     return false;
-      //   }
-      // },
     },
   ]);
   const { firstName, lastName, roleID, managerID } = userInput;
@@ -352,36 +324,46 @@ const updateManager = async () => {
 
 // ----------------------View Employee by Manager Function ---------------------------- //
 
-const viewByManager = async () => {
-  db.query("SELECT manager_id,id FROM employee", async (err, results) => {
-    if (err) throw err;
-    else {
-      const managerList = results.map((employee) => {
-        return { name: employee.manager_id, value: employee.id };
-      });
-      console.log(managerList);
-      const userInput = await inquirer.prompt([
-        {
-          type: "list",
-          message: "What is the manager ID you want to view?",
-          name: "viewByManager",
-          choices: managerList,
-        },
-      ]);
-      const { ViewByManager } = userInput;
-      db.query(
-        `SELECT * FROM employee WHERE manager_id = ?`,
-        ViewByManager,
-        (err, results) => {
-          if (err) throw err;
-          else {
-            console.table(results);
-            question();
-          }
-        }
-      );
+const viewByManager = () => {
+  db.query(
+    `SELECT id,first_name, last_name,role_id AS worker FROM employee GROUP BY manager_id`,
+    (err, results) => {
+      if (err) throw err;
+      else {
+        console.table(results);
+        question();
+      }
     }
-  });
+  );
+  // db.query("SELECT manager_id,id FROM employee", async (err, results) => {
+  //   if (err) throw err;
+  //   else {
+  //     const managerList = results.map((employee) => {
+  //       return { name: employee.manager_id, value: employee.id };
+  //     });
+  //     console.log(managerList);
+  //     const userInput = await inquirer.prompt([
+  //       {
+  //         type: "list",
+  //         message: "What is the manager ID you want to view?",
+  //         name: "viewByManager",
+  //         choices: managerList,
+  //       },
+  //     ]);
+  //     const { ViewByManager } = userInput;
+  //     db.query(
+  //       ``SELECT first_name, last_name AS name FROM employee GROUP BY manager_id``,
+  //       ViewByManager,
+  //       (err, results) => {
+  //         if (err) throw err;
+  //         else {
+  //           console.table(results);
+  //           question();
+  //         }
+  //       }
+  //     );
+  //   }
+  // });
 };
 
 // ---------------------- Delete Function ---------------------------- //
@@ -429,7 +411,7 @@ const viewBudget = async () => {
       question();
       console.log(results);
     }
-  )
+  );
   question();
 };
 
